@@ -34,6 +34,7 @@ document.getElementById('add-product-form').addEventListener('submit', function(
     // الحصول على تفاصيل المنتج
     const name = document.getElementById('product-name').value;
     const price = document.getElementById('product-price').value;
+    const description = document.getElementById('product-description').value;
 
     // الحصول على الصورة من المدخل
     const imageFile = document.getElementById('product-image').files[0];
@@ -43,7 +44,7 @@ document.getElementById('add-product-form').addEventListener('submit', function(
         const image = reader.result; // الحصول على صورة المنتج
 
         // إضافة المنتج إلى القائمة
-        products.push({ name, price, image });
+        products.push({ name, price, description, image });
 
         // تحديث واجهة المنتجات
         displayProducts();
@@ -66,6 +67,7 @@ function displayProducts() {
             <img src="${product.image}" alt="${product.name}" style="max-width: 100%; height: auto;">
             <h3>${product.name}</h3>
             <p>السعر: ${product.price} دولار</p>
+            <p>الوصف: ${product.description}</p>
         `;
         productList.appendChild(productDiv);
     });
