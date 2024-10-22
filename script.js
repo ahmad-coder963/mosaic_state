@@ -22,7 +22,7 @@ function displayProducts() {
     const productList = document.getElementById('product-list');
     productList.innerHTML = '';
 
-    products.forEach((product, index) => {
+    products.forEach((product) => {
         const productDiv = document.createElement('div');
         productDiv.innerHTML = `
             <img src="${product.image}" alt="${product.name}">
@@ -50,7 +50,7 @@ document.getElementById('add-canva-design').addEventListener('click', function()
 
 // لتفعيل زر الوصول إلى لوحة الإدارة (مخفي بشكل عام، يمكن تفعيله بضغط زر معين أو بإدخال كلمة مرور)
 window.addEventListener('keydown', function(e) {
-    if (e.key === 'a' && e.ctrlKey) { // اضغط Ctrl + A لإظهار لوحة الإدارة
+    if (e.key === 'g' && e.ctrlKey) { // اضغط Ctrl + G لإظهار لوحة الإدارة
         toggleAdminPanel();
     }
 });
