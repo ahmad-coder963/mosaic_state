@@ -97,6 +97,10 @@ button:hover {
 }
 
 /* لإظهار خيارات الإدارة */
+.hidden {
+    display: none;
+}
+
 #admin-controls {
     margin-top: 20px;
 }
