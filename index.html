@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>mosaic_state</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* إضافة بعض التنسيقات البسيطة */
+        .hidden {
+            display: none; /* إخفاء العنصر */
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -49,11 +55,11 @@
         <h2>إدارة المتجر</h2>
         <form id="add-product-form">
             <label for="product-name">اسم المنتج:</label>
-            <input type="text" id="product-name" name="product-name">
+            <input type="text" id="product-name" name="product-name" required>
             <label for="product-price">سعر المنتج:</label>
-            <input type="number" id="product-price" name="product-price">
+            <input type="number" id="product-price" name="product-price" required>
             <label for="product-image">رابط الصورة:</label>
-            <input type="text" id="product-image" name="product-image">
+            <input type="text" id="product-image" name="product-image" required>
             <button type="submit">إضافة المنتج</button>
         </form>
 
