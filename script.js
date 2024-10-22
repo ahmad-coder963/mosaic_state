@@ -39,18 +39,18 @@ function toggleAdminPanel() {
     adminSection.classList.toggle('hidden');
 }
 
-// إضافة تصميم من Canva
-document.getElementById('add-canva-design').addEventListener('click', function() {
-    const designUrl = prompt("أدخل رابط التصميم من Canva:");
-    if (designUrl) {
-        const designDiv = document.getElementById('canva-design');
-        designDiv.innerHTML = `<iframe src="${designUrl}" style="width: 100%; height: 500px;"></iframe>`;
-    }
-});
+// متغير للعد
+let gPressCount = 0;
 
-// لتفعيل زر الوصول إلى لوحة الإدارة (مخفي بشكل عام، يمكن تفعيله بضغط زر معين أو بإدخال كلمة مرور)
+// لتفعيل زر الوصول إلى لوحة الإدارة عند الضغط على حرف g خمس مرات
 window.addEventListener('keydown', function(e) {
-    if (e.key === 'g' && e.ctrlKey) { // اضغط Ctrl + G لإظهار لوحة الإدارة
-        toggleAdminPanel();
+    if (e.key === 'g') { // إذا تم الضغط على حرف g
+        gPressCount++; // زيادة العداد
+        if (gPressCount === 5) { // إذا كانت عدد الضغطات خمسة
+            toggleAdminPanel(); // افتح أو أغلق قسم الإدارة
+            gPressCount = 0; // إعادة العداد للصفر بعد فتح القسم
+        }
+    } else {
+        gPressCount = 0; // إعادة العداد للصفر إذا تم الضغط على مفتاح آخر
     }
 });
