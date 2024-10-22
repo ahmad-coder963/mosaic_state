@@ -61,24 +61,33 @@ function displayProducts() {
     const productList = document.getElementById('product-list');
     productList.innerHTML = ''; // مسح القائمة الحالية
 
-    products.forEach((product, index) => {
+    products.forEach(product => {
         const productDiv = document.createElement('div');
         productDiv.innerHTML = `
             <img src="${product.image}" alt="${product.name}" style="max-width: 100%; height: auto;">
             <h3>${product.name}</h3>
             <p>السعر: ${product.price} ليرة سورية</p>
             <p>الوصف: ${product.description}</p>
-            <button onclick="deleteProduct(${index})">حذف المنتج</button>
         `;
         productList.appendChild(productDiv);
     });
 }
 
 // حذف المنتج
-function deleteProduct(index) {
-    products.splice(index, 1); // حذف المنتج من القائمة
-    displayProducts(); // تحديث واجهة المنتجات
-}
+document.getElementById('delete-product-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const productNameToDelete = document.getElementById('product-name-delete').value;
+    const productIndex = products.findIndex(product => product.name === productNameToDelete);
+
+    if (productIndex !== -1) {
+        products.splice(productIndex, 1); // حذف المنتج
+        alert(`تم حذف المنتج: ${productNameToDelete}`);
+        displayProducts(); // تحديث واجهة المنتجات
+    } else {
+        alert("المنتج غير موجود!");
+    }
+});
 
 // إضافة تصميم من Canva
 document.getElementById('add-canva-design-form').addEventListener('submit', function(e) {
