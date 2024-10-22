@@ -25,7 +25,7 @@ document.getElementById('add-product-form').addEventListener('submit', function(
 
     // الحصول على كلمة المرور لإضافة المنتج
     const enteredProductPassword = document.getElementById('product-password').value;
-    
+
     if (enteredProductPassword !== productPassword) {
         alert("كلمة المرور لإضافة منتج غير صحيحة!");
         return;
@@ -34,13 +34,25 @@ document.getElementById('add-product-form').addEventListener('submit', function(
     // الحصول على تفاصيل المنتج
     const name = document.getElementById('product-name').value;
     const price = document.getElementById('product-price').value;
-    const image = document.getElementById('product-image').value;
 
-    // إضافة المنتج إلى القائمة
-    products.push({ name, price, image });
+    // الحصول على الصورة من المدخل
+    const imageFile = document.getElementById('product-image').files[0];
+    const reader = new FileReader();
 
-    // تحديث واجهة المنتجات
-    displayProducts();
+    reader.onloadend = function() {
+        const image = reader.result; // الحصول على صورة المنتج
+
+        // إضافة المنتج إلى القائمة
+        products.push({ name, price, image });
+
+        // تحديث واجهة المنتجات
+        displayProducts();
+    }
+
+    // قراءة الصورة
+    if (imageFile) {
+        reader.readAsDataURL(imageFile);
+    }
 });
 
 // عرض المنتجات
@@ -63,7 +75,7 @@ function displayProducts() {
 document.getElementById('add-canva-design-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const enteredDesignPassword = document.getElementById('design-password').value;
-    
+
     if (enteredDesignPassword !== designPassword) {
         alert("كلمة المرور لرفع التصميم غير صحيحة!");
         return;
