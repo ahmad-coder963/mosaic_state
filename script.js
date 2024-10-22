@@ -61,16 +61,23 @@ function displayProducts() {
     const productList = document.getElementById('product-list');
     productList.innerHTML = ''; // مسح القائمة الحالية
 
-    products.forEach((product) => {
+    products.forEach((product, index) => {
         const productDiv = document.createElement('div');
         productDiv.innerHTML = `
             <img src="${product.image}" alt="${product.name}" style="max-width: 100%; height: auto;">
             <h3>${product.name}</h3>
-            <p>السعر: ${product.price} دولار</p>
+            <p>السعر: ${product.price} ليرة سورية</p>
             <p>الوصف: ${product.description}</p>
+            <button onclick="deleteProduct(${index})">حذف المنتج</button>
         `;
         productList.appendChild(productDiv);
     });
+}
+
+// حذف المنتج
+function deleteProduct(index) {
+    products.splice(index, 1); // حذف المنتج من القائمة
+    displayProducts(); // تحديث واجهة المنتجات
 }
 
 // إضافة تصميم من Canva
@@ -78,14 +85,11 @@ document.getElementById('add-canva-design-form').addEventListener('submit', func
     e.preventDefault();
     const enteredDesignPassword = document.getElementById('design-password').value;
 
-    if (enteredDesignPassword !== designPassword) {
+    if (enteredDesignPassword === designPassword) {
+        const designDiv = document.createElement('div');
+        designDiv.innerHTML = `<p>تصميم تم إضافته بنجاح!</p>`;
+        document.getElementById('canva-design').appendChild(designDiv);
+    } else {
         alert("كلمة المرور لرفع التصميم غير صحيحة!");
-        return;
-    }
-
-    const designUrl = prompt("أدخل رابط التصميم من Canva:");
-    if (designUrl) {
-        const designDiv = document.getElementById('canva-design');
-        designDiv.innerHTML = `<iframe src="${designUrl}" style="width: 100%; height: 500px;"></iframe>`;
     }
 });
