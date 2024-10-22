@@ -46,12 +46,12 @@ document.getElementById('add-product-form').addEventListener('submit', function(
 // عرض المنتجات
 function displayProducts() {
     const productList = document.getElementById('product-list');
-    productList.innerHTML = '';
+    productList.innerHTML = ''; // مسح القائمة الحالية
 
     products.forEach((product) => {
         const productDiv = document.createElement('div');
         productDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
+            <img src="${product.image}" alt="${product.name}" style="max-width: 100%; height: auto;">
             <h3>${product.name}</h3>
             <p>السعر: ${product.price} دولار</p>
         `;
@@ -75,4 +75,3 @@ document.getElementById('add-canva-design-form').addEventListener('submit', func
         designDiv.innerHTML = `<iframe src="${designUrl}" style="width: 100%; height: 500px;"></iframe>`;
     }
 });
-
