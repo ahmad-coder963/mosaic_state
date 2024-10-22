@@ -1,9 +1,35 @@
 // قائمة المنتجات
 let products = [];
 
+// كلمة المرور للدخول إلى الإدارة
+const adminPassword = "322502"; // كلمة المرور للدخول إلى قسم الإدارة
+const productPassword = "322502"; // كلمة المرور لإضافة منتج
+const designPassword = "322502"; // كلمة المرور لرفع التصميم
+
+// تفعيل قسم الإدارة عند إدخال كلمة المرور الصحيحة
+document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const enteredAdminPassword = document.getElementById('admin-password').value;
+
+    if (enteredAdminPassword === adminPassword) {
+        document.getElementById('admin-controls').classList.remove('hidden'); // إظهار خيارات الإدارة
+        alert("تم تسجيل الدخول إلى قسم الإدارة.");
+    } else {
+        alert("كلمة المرور غير صحيحة!");
+    }
+});
+
 // إضافة المنتج
 document.getElementById('add-product-form').addEventListener('submit', function(e) {
     e.preventDefault();
+
+    // الحصول على كلمة المرور لإضافة المنتج
+    const enteredProductPassword = document.getElementById('product-password').value;
+    
+    if (enteredProductPassword !== productPassword) {
+        alert("كلمة المرور لإضافة منتج غير صحيحة!");
+        return;
+    }
 
     // الحصول على تفاصيل المنتج
     const name = document.getElementById('product-name').value;
@@ -33,24 +59,20 @@ function displayProducts() {
     });
 }
 
-// إظهار وإخفاء قسم الإدارة
-function toggleAdminPanel() {
-    const adminSection = document.getElementById('admin');
-    adminSection.classList.toggle('hidden');
-}
+// إضافة تصميم من Canva
+document.getElementById('add-canva-design-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const enteredDesignPassword = document.getElementById('design-password').value;
+    
+    if (enteredDesignPassword !== designPassword) {
+        alert("كلمة المرور لرفع التصميم غير صحيحة!");
+        return;
+    }
 
-// متغير للعد
-let gPressCount = 0;
-
-// لتفعيل زر الوصول إلى لوحة الإدارة عند الضغط على حرف g خمس مرات
-window.addEventListener('keydown', function(e) {
-    if (e.key === 'g') { // إذا تم الضغط على حرف g
-        gPressCount++; // زيادة العداد
-        if (gPressCount === 5) { // إذا كانت عدد الضغطات خمسة
-            toggleAdminPanel(); // افتح أو أغلق قسم الإدارة
-            gPressCount = 0; // إعادة العداد للصفر بعد فتح القسم
-        }
-    } else {
-        gPressCount = 0; // إعادة العداد للصفر إذا تم الضغط على مفتاح آخر
+    const designUrl = prompt("أدخل رابط التصميم من Canva:");
+    if (designUrl) {
+        const designDiv = document.getElementById('canva-design');
+        designDiv.innerHTML = `<iframe src="${designUrl}" style="width: 100%; height: 500px;"></iframe>`;
     }
 });
+
