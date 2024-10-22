@@ -6,12 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>mosaic_state</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* إضافة بعض التنسيقات البسيطة */
-        .hidden {
-            display: none; /* إخفاء العنصر */
-        }
-    </style>
 </head>
 <body>
     <!-- Header -->
@@ -43,30 +37,44 @@
         <h2>تواصل معنا</h2>
         <form>
             <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" required>
             <label for="message">الرسالة:</label>
-            <textarea id="message" name="message"></textarea>
+            <textarea id="message" name="message" required></textarea>
             <button type="submit">إرسال</button>
         </form>
     </section>
 
-    <!-- Admin Section (مخفي) -->
-    <section id="admin" class="hidden">
+    <!-- Admin Section -->
+    <section id="admin">
         <h2>إدارة المتجر</h2>
-        <form id="add-product-form">
-            <label for="product-name">اسم المنتج:</label>
-            <input type="text" id="product-name" name="product-name" required>
-            <label for="product-price">سعر المنتج:</label>
-            <input type="number" id="product-price" name="product-price" required>
-            <label for="product-image">رابط الصورة:</label>
-            <input type="text" id="product-image" name="product-image" required>
-            <button type="submit">إضافة المنتج</button>
+        <form id="admin-login-form">
+            <label for="admin-password">كلمة المرور للدخول إلى الإدارة:</label>
+            <input type="password" id="admin-password" name="admin-password" required>
+            <button type="submit">دخول</button>
         </form>
 
-        <h3>إضافة تصميم من Canva:</h3>
-        <button id="add-canva-design">إضافة تصميم</button>
+        <div id="admin-controls" class="hidden">
+            <form id="add-product-form">
+                <label for="product-name">اسم المنتج:</label>
+                <input type="text" id="product-name" name="product-name" required>
+                <label for="product-price">سعر المنتج:</label>
+                <input type="number" id="product-price" name="product-price" required>
+                <label for="product-image">رابط الصورة:</label>
+                <input type="text" id="product-image" name="product-image" required>
+                <label for="product-password">كلمة المرور لإضافة منتج:</label>
+                <input type="password" id="product-password" name="product-password" required>
+                <button type="submit">إضافة المنتج</button>
+            </form>
 
-        <div id="canva-design"></div>
+            <h3>إضافة تصميم من Canva:</h3>
+            <form id="add-canva-design-form">
+                <label for="design-password">كلمة المرور لرفع التصميم:</label>
+                <input type="password" id="design-password" name="design-password" required>
+                <button type="submit">إضافة تصميم</button>
+            </form>
+
+            <div id="canva-design"></div>
+        </div>
     </section>
 
     <script src="script.js"></script>
