@@ -58,7 +58,7 @@
                 <label for="product-name">اسم المنتج:</label>
                 <input type="text" id="product-name" name="product-name" required>
 
-                <label for="product-price">سعر المنتج:</label>
+                <label for="product-price">سعر المنتج (بالليرة السورية):</label>
                 <input type="number" id="product-price" name="product-price" required>
 
                 <label for="product-description">وصف المنتج:</label>
@@ -82,8 +82,8 @@
 
             <h3>حذف المنتجات:</h3>
             <form id="delete-product-form">
-                <label for="product-index">رقم المنتج لحذفه (0 - ${products.length - 1}):</label>
-                <input type="number" id="product-index" name="product-index" min="0" required>
+                <label for="product-name-delete">اسم المنتج لحذفه:</label>
+                <input type="text" id="product-name-delete" name="product-name-delete" required>
                 <button type="submit">حذف المنتج</button>
             </form>
 
