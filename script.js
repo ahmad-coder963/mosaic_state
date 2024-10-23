@@ -1,5 +1,5 @@
 // كلمة المرور للدخول إلى الإدارة
-const adminPassword = "322502"; // كلمة المرور للدخول إلى قسم الإدارة
+const adminPassword = "322502"; // كلمة المرور لقسم الإدارة
 
 // زر الدخول إلى إدارة المتجر
 const adminButton = document.getElementById('admin-button');
@@ -8,9 +8,9 @@ const adminButton = document.getElementById('admin-button');
 adminButton.addEventListener('click', function(e) {
     e.preventDefault(); // منع السلوك الافتراضي للزر
 
-    const enteredAdminPassword = prompt("يرجى إدخال كلمة المرور للدخول إلى قسم الإدارة:");
+    const enteredPassword = prompt("يرجى إدخال كلمة المرور للدخول إلى قسم الإدارة:");
 
-    if (enteredAdminPassword === adminPassword) {
+    if (enteredPassword === adminPassword) {
         document.getElementById('admin').classList.remove('hidden'); // إظهار قسم الإدارة
         alert("تم تسجيل الدخول إلى قسم الإدارة.");
     } else {
@@ -19,7 +19,7 @@ adminButton.addEventListener('click', function(e) {
 });
 
 // قائمة المنتجات
-let products = JSON.parse(localStorage.getItem('products')) || [];
+let products = [];
 
 // إضافة المنتج
 document.getElementById('add-product-form').addEventListener('submit', function(e) {
@@ -28,23 +28,21 @@ document.getElementById('add-product-form').addEventListener('submit', function(
     // الحصول على تفاصيل المنتج
     const name = document.getElementById('product-name').value;
     const price = document.getElementById('product-price').value;
-    const description = document.getElementById('product-description').value;
-    const imageFile = document.getElementById('product-image').files[0];
+    const image = document.getElementById('product-image').files[0]; // رفع صورة
+    const details = document.getElementById('product-details').value;
 
-    if (imageFile) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            const imageUrl = event.target.result;
+    // قراءة الصورة وتحويلها إلى Data URL
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const imageUrl = e.target.result;
 
-            // إضافة المنتج إلى القائمة
-            products.push({ name, price, description, imageUrl });
-            localStorage.setItem('products', JSON.stringify(products)); // حفظ المنتجات في التخزين المحلي
+        // إضافة المنتج إلى القائمة
+        products.push({ name, price, imageUrl, details });
 
-            // تحديث واجهة المنتجات
-            displayProducts();
-        };
-        reader.readAsDataURL(imageFile); // تحويل صورة المنتج إلى Base64
-    }
+        // تحديث واجهة المنتجات
+        displayProducts();
+    };
+    reader.readAsDataURL(image); // قراءة الصورة
 });
 
 // عرض المنتجات
@@ -58,30 +56,18 @@ function displayProducts() {
             <img src="${product.imageUrl}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>السعر: ${product.price} ليرة سورية</p>
-            <p>${product.description}</p>
+            <p>${product.details}</p>
         `;
         productList.appendChild(productDiv);
     });
 }
 
 // حذف المنتج
-document.getElementById('delete-product-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+document.getElementById('delete-product').addEventListener('click', function() {
+    const productNameToDelete = document.getElementById('delete-product-name').value;
 
-    const productNameToDelete = document.getElementById('product-name-delete').value;
+    products = products.filter(product => product.name !== productNameToDelete);
 
-    const updatedProducts = products.filter(product => product.name !== productNameToDelete);
-    if (updatedProducts.length !== products.length) {
-        products = updatedProducts;
-        localStorage.setItem('products', JSON.stringify(products)); // تحديث التخزين المحلي
-        alert("تم حذف المنتج.");
-        displayProducts();
-    } else {
-        alert("لم يتم العثور على المنتج.");
-    }
-});
-
-// عند تحميل الصفحة، عرض المنتجات المحفوظة
-window.onload = function() {
+    // تحديث واجهة المنتجات بعد الحذف
     displayProducts();
-};
+});
