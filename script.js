@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     const adminLink = document.getElementById('admin-link');
     const adminSection = document.getElementById('admin');
+    const addProductForm = document.getElementById('add-product-form');
+    const productList = document.getElementById('product-list');
+    const deleteProductForm = document.getElementById('delete-product-form');
+
+    // عرض المنتجات المخزنة عند تحميل الصفحة
+    loadProducts();
 
     adminLink.addEventListener('click', function (e) {
         e.preventDefault();
@@ -12,9 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    const addProductForm = document.getElementById('add-product-form');
-    const productList = document.getElementById('product-list');
-
     // إضافة منتج
     addProductForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -24,34 +27,72 @@ document.addEventListener('DOMContentLoaded', function () {
         const productDescription = document.getElementById('product-description').value;
         const productImages = document.getElementById('product-images').files;
 
-        const productDiv = document.createElement('div');
-        productDiv.innerHTML = `
-            <h3>${productName}</h3>
-            <p>السعر: ${productPrice} ل.س</p>
-            <p>${productDescription}</p>
-        `;
+        const product = {
+            name: productName,
+            price: productPrice,
+            description: productDescription,
+            images: []
+        };
 
         for (let i = 0; i < productImages.length; i++) {
-            const img = document.createElement('img');
-            img.src = URL.createObjectURL(productImages[i]);
-            productDiv.appendChild(img);
+            product.images.push(URL.createObjectURL(productImages[i]));
         }
 
-        productList.appendChild(productDiv);
+        saveProduct(product);
+        displayProduct(product);
     });
 
     // حذف منتج
-    const deleteProductForm = document.getElementById('delete-product-form');
     deleteProductForm.addEventListener('submit', function (e) {
         e.preventDefault();
-
+        
         const deleteProductName = document.getElementById('delete-product-name').value;
-        const products = productList.getElementsByTagName('div');
-        for (let i = 0; i < products.length; i++) {
-            if (products[i].getElementsByTagName('h3')[0].textContent === deleteProductName) {
-                productList.removeChild(products[i]);
-                break;
-            }
-        }
+        removeProduct(deleteProductName);
     });
+
+    // حفظ المنتجات في localStorage
+    function saveProduct(product) {
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        products.push(product);
+        localStorage.setItem('products', JSON.stringify(products));
+    }
+
+    // تحميل المنتجات من localStorage
+    function loadProducts() {
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        products.forEach(function (product) {
+            displayProduct(product);
+        });
+    }
+
+    // عرض المنتج على الصفحة
+    function displayProduct(product) {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>السعر: ${product.price} ل.س</p>
+            <p>${product.description}</p>
+        `;
+
+        product.images.forEach(function (imageSrc) {
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            productDiv.appendChild(img);
+        });
+
+        productList.appendChild(productDiv);
+    }
+
+    // حذف المنتج من localStorage ومن الصفحة
+    function removeProduct(productName) {
+        let products = JSON.parse(localStorage.getItem('products')) || [];
+        products = products.filter(function (product) {
+            return product.name !== productName;
+        });
+        localStorage.setItem('products', JSON.stringify(products));
+
+        // إعادة تحميل المنتجات بعد الحذف
+        productList.innerHTML = '';
+        loadProducts();
+    }
 });
