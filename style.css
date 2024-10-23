@@ -13,12 +13,6 @@ header {
     text-align: center;
 }
 
-header img#logo {
-    width: 100px;
-    height: auto;
-    margin-top: 10px;
-}
-
 nav a {
     color: white;
     margin: 0 15px;
