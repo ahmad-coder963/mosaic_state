@@ -15,6 +15,7 @@
             <a href="#products">المنتجات</a>
             <a href="#about">من نحن</a>
             <a href="#contact">تواصل معنا</a>
+            <a href="#" id="admin-button">إدارة المتجر</a> <!-- زر إدارة المتجر -->
         </nav>
     </header>
 
@@ -45,15 +46,9 @@
     </section>
 
     <!-- Admin Section -->
-    <section id="admin">
+    <section id="admin" class="hidden">
         <h2>إدارة المتجر</h2>
-        <form id="admin-login-form">
-            <label for="admin-password">كلمة المرور للدخول إلى الإدارة:</label>
-            <input type="password" id="admin-password" name="admin-password" required>
-            <button type="submit">دخول</button>
-        </form>
-
-        <div id="admin-controls" class="hidden">
+        <div id="admin-controls">
             <form id="add-product-form">
                 <label for="product-name">اسم المنتج:</label>
                 <input type="text" id="product-name" name="product-name" required>
@@ -67,9 +62,6 @@
                 <label for="product-image">رفع صورة المنتج:</label>
                 <input type="file" id="product-image" name="product-image" accept="image/*" required>
 
-                <label for="product-password">كلمة المرور لإضافة منتج:</label>
-                <input type="password" id="product-password" name="product-password" required>
-
                 <button type="submit">إضافة المنتج</button>
             </form>
 
@@ -79,8 +71,6 @@
                 <input type="text" id="product-name-delete" name="product-name-delete" required>
                 <button type="submit">حذف المنتج</button>
             </form>
-
-            <div id="canva-design"></div>
         </div>
     </section>
 
