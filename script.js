@@ -1,78 +1,87 @@
-/* إعدادات أساسية */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+// كلمة المرور للدخول إلى الإدارة
+const adminPassword = "322502"; // كلمة المرور للدخول إلى قسم الإدارة
+
+// زر الدخول إلى إدارة المتجر
+const adminButton = document.getElementById('admin-button');
+
+// عند الضغط على زر إدارة المتجر
+adminButton.addEventListener('click', function(e) {
+    e.preventDefault(); // منع السلوك الافتراضي للزر
+
+    const enteredAdminPassword = prompt("يرجى إدخال كلمة المرور للدخول إلى قسم الإدارة:");
+
+    if (enteredAdminPassword === adminPassword) {
+        document.getElementById('admin').classList.remove('hidden'); // إظهار قسم الإدارة
+        alert("تم تسجيل الدخول إلى قسم الإدارة.");
+    } else {
+        alert("كلمة المرور غير صحيحة!");
+    }
+});
+
+// قائمة المنتجات
+let products = JSON.parse(localStorage.getItem('products')) || [];
+
+// إضافة المنتج
+document.getElementById('add-product-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // الحصول على تفاصيل المنتج
+    const name = document.getElementById('product-name').value;
+    const price = document.getElementById('product-price').value;
+    const description = document.getElementById('product-description').value;
+    const imageFile = document.getElementById('product-image').files[0];
+
+    if (imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imageUrl = event.target.result;
+
+            // إضافة المنتج إلى القائمة
+            products.push({ name, price, description, imageUrl });
+            localStorage.setItem('products', JSON.stringify(products)); // حفظ المنتجات في التخزين المحلي
+
+            // تحديث واجهة المنتجات
+            displayProducts();
+        };
+        reader.readAsDataURL(imageFile); // تحويل صورة المنتج إلى Base64
+    }
+});
+
+// عرض المنتجات
+function displayProducts() {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = '';
+
+    products.forEach((product, index) => {
+        const productDiv = document.createElement('div');
+        productDiv.innerHTML = `
+            <img src="${product.imageUrl}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p>السعر: ${product.price} ليرة سورية</p>
+            <p>${product.description}</p>
+        `;
+        productList.appendChild(productDiv);
+    });
 }
 
-header {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
+// حذف المنتج
+document.getElementById('delete-product-form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-nav a {
-    color: white;
-    margin: 0 15px;
-    text-decoration: none;
-}
+    const productNameToDelete = document.getElementById('product-name-delete').value;
 
-section {
-    padding: 20px;
-}
+    const updatedProducts = products.filter(product => product.name !== productNameToDelete);
+    if (updatedProducts.length !== products.length) {
+        products = updatedProducts;
+        localStorage.setItem('products', JSON.stringify(products)); // تحديث التخزين المحلي
+        alert("تم حذف المنتج.");
+        displayProducts();
+    } else {
+        alert("لم يتم العثور على المنتج.");
+    }
+});
 
-#products {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#product-list {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#product-list div {
-    background-color: white;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    width: calc(33% - 40px);
-    box-sizing: border-box;
-}
-
-#product-list img {
-    max-width: 100%;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-}
-
-form input, form textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px;
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: #555;
-}
-
-/* إخفاء قسم الإدارة بشكل افتراضي */
-.hidden {
-    display: none;
-}
+// عند تحميل الصفحة، عرض المنتجات المحفوظة
+window.onload = function() {
+    displayProducts();
+};
