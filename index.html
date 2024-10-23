@@ -38,9 +38,9 @@
         <h2>تواصل معنا</h2>
         <form>
             <label for="name">الاسم:</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" required>
             <label for="message">الرسالة:</label>
-            <textarea id="message" name="message"></textarea>
+            <textarea id="message" name="message" required></textarea>
             <button type="submit">إرسال</button>
         </form>
     </section>
@@ -61,7 +61,7 @@
         </form>
 
         <h3>حذف منتج:</h3>
-        <input type="text" id="delete-product-name" placeholder="اسم المنتج">
+        <input type="text" id="delete-product-name" placeholder="اسم المنتج" required>
         <button id="delete-product">حذف المنتج</button>
     </section>
 
@@ -70,7 +70,7 @@
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h3>إدخال كلمة المرور</h3>
-            <input type="password" id="password-input" placeholder="أدخل كلمة المرور">
+            <input type="password" id="password-input" placeholder="أدخل كلمة المرور" required>
             <button id="password-submit">دخول</button>
         </div>
     </div>
