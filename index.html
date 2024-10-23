@@ -10,13 +10,13 @@
 <body>
     <!-- Header -->
     <header>
-        <img src="m.png" alt="Logo" class="logo"> <!-- إضافة اللوغو -->
         <h1>mosaic_state</h1>
+        <img src="m.png" alt="mosaic logo" id="logo">
         <nav>
             <a href="#products">المنتجات</a>
             <a href="#about">من نحن</a>
             <a href="#contact">تواصل معنا</a>
-            <a href="#" id="admin-button">إدارة المتجر</a> <!-- زر إدارة المتجر -->
+            <a href="#" id="admin-link">إدارة المتجر</a>
         </nav>
     </header>
 
@@ -46,36 +46,32 @@
         </form>
     </section>
 
-    <!-- Admin Section (مخفي حتى يتم إدخال كلمة المرور) -->
+    <!-- Admin Section -->
     <section id="admin" class="hidden">
         <h2>إدارة المتجر</h2>
         <form id="add-product-form">
             <label for="product-name">اسم المنتج:</label>
             <input type="text" id="product-name" name="product-name">
-            <label for="product-price">سعر المنتج (بالليرة السورية):</label>
+            
+            <label for="product-price">سعر المنتج (ل.س):</label>
             <input type="number" id="product-price" name="product-price">
-            <label for="product-images">صور المنتج:</label>
-            <input type="file" id="product-images" name="product-images" accept="image/*" multiple>
-            <label for="product-details">تفاصيل المنتج:</label>
-            <textarea id="product-details" name="product-details"></textarea>
+            
+            <label for="product-description">وصف المنتج:</label>
+            <textarea id="product-description" name="product-description"></textarea>
+
+            <label for="product-images">رفع الصور:</label>
+            <input type="file" id="product-images" name="product-images" multiple>
+
             <button type="submit">إضافة المنتج</button>
         </form>
 
-        <h3>حذف منتج:</h3>
-        <input type="text" id="delete-product-name" placeholder="اسم المنتج">
-        <button id="delete-product">حذف المنتج</button>
+        <h3>حذف منتج</h3>
+        <form id="delete-product-form">
+            <label for="delete-product-name">اسم المنتج لحذفه:</label>
+            <input type="text" id="delete-product-name" name="delete-product-name">
+            <button type="submit">حذف المنتج</button>
+        </form>
     </section>
-
-    <!-- Modal لعرض تفاصيل المنتج -->
-    <div id="product-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <div id="modal-images"></div>
-            <h3 id="modal-product-name"></h3>
-            <p id="modal-product-details"></p>
-            <p id="modal-product-price"></p>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
