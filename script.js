@@ -1,106 +1,57 @@
-// كلمة المرور للدخول إلى الإدارة
-const adminPassword = "322502"; // كلمة المرور لقسم الإدارة
+document.addEventListener('DOMContentLoaded', function () {
+    const adminLink = document.getElementById('admin-link');
+    const adminSection = document.getElementById('admin');
 
-// زر الدخول إلى إدارة المتجر
-const adminButton = document.getElementById('admin-button');
-
-// عند الضغط على زر إدارة المتجر
-adminButton.addEventListener('click', function(e) {
-    e.preventDefault(); // منع السلوك الافتراضي للزر
-
-    const enteredPassword = prompt("يرجى إدخال كلمة المرور للدخول إلى قسم الإدارة:");
-
-    if (enteredPassword === adminPassword) {
-        document.getElementById('admin').classList.remove('hidden'); // إظهار قسم الإدارة
-        alert("تم تسجيل الدخول إلى قسم الإدارة.");
-    } else {
-        alert("كلمة المرور غير صحيحة!");
-    }
-});
-
-// قائمة المنتجات
-let products = [];
-
-// إضافة المنتج
-document.getElementById('add-product-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // الحصول على تفاصيل المنتج
-    const name = document.getElementById('product-name').value;
-    const price = document.getElementById('product-price').value;
-    const images = document.getElementById('product-images').files; // صور متعددة
-    const details = document.getElementById('product-details').value;
-
-    let imageUrls = [];
-    const readerPromises = Array.from(images).map(file => {
-        return new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                resolve(e.target.result);
-            };
-            reader.readAsDataURL(file);
-        });
+    adminLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        const password = prompt("أدخل كلمة المرور:");
+        if (password === "322502") {
+            adminSection.classList.remove('hidden');
+        } else {
+            alert('كلمة المرور غير صحيحة.');
+        }
     });
 
-    Promise.all(readerPromises).then(urls => {
-        imageUrls = urls;
-
-        // إضافة المنتج إلى القائمة
-        products.push({ name, price, imageUrls, details });
-
-        // تحديث واجهة المنتجات
-        displayProducts();
-    });
-});
-
-// عرض المنتجات
-function displayProducts() {
+    const addProductForm = document.getElementById('add-product-form');
     const productList = document.getElementById('product-list');
-    productList.innerHTML = '';
 
-    products.forEach((product, index) => {
+    // إضافة منتج
+    addProductForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const productName = document.getElementById('product-name').value;
+        const productPrice = document.getElementById('product-price').value;
+        const productDescription = document.getElementById('product-description').value;
+        const productImages = document.getElementById('product-images').files;
+
         const productDiv = document.createElement('div');
         productDiv.innerHTML = `
-            <img src="${product.imageUrls[0]}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>السعر: ${product.price} ليرة سورية</p>
+            <h3>${productName}</h3>
+            <p>السعر: ${productPrice} ل.س</p>
+            <p>${productDescription}</p>
         `;
-        productDiv.addEventListener('click', function() {
-            openModal(product);
-        });
+
+        for (let i = 0; i < productImages.length; i++) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(productImages[i]);
+            productDiv.appendChild(img);
+        }
+
         productList.appendChild(productDiv);
     });
-}
 
-// عرض تفاصيل المنتج في الـ Modal
-function openModal(product) {
-    document.getElementById('modal-product-name').textContent = product.name;
-    document.getElementById('modal-product-details').textContent = product.details;
-    document.getElementById('modal-product-price').textContent = `السعر: ${product.price} ليرة سورية`;
+    // حذف منتج
+    const deleteProductForm = document.getElementById('delete-product-form');
+    deleteProductForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-    const modalImages = document.getElementById('modal-images');
-    modalImages.innerHTML = '';
-    product.imageUrls.forEach((url, index) => {
-        const img = document.createElement('img');
-        img.src = url;
-        img.style.maxWidth = '100px';
-        img.style.margin = '5px';
-        modalImages.appendChild(img);
+        const deleteProductName = document.getElementById('delete-product-name').value;
+        const products = productList.getElementsByTagName('div');
+        for (let i = 0; i < products.length; i++) {
+            if (products[i].getElementsByTagName('h3')[0].textContent === deleteProductName) {
+                productList.removeChild(products[i]);
+                break;
+            }
+        }
     });
-
-    document.getElementById('product-modal').classList.remove('hidden');
-}
-
-// إغلاق الـ Modal
-document.querySelector('.close-button').addEventListener('click', function() {
-    document.getElementById('product-modal').classList.add('hidden');
-});
-
-// حذف منتج
-document.getElementById('delete-product').addEventListener('click', function() {
-    const deleteProductName = document.getElementById('delete-product-name').value;
-
-    products = products.filter(product => product.name !== deleteProductName);
-
-    displayProducts();
 });
