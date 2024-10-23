@@ -1,9 +1,28 @@
 // script.js
 
-// عرض قسم الإدارة عند النقر على زر الإدارة
+const correctPassword = "322502"; // كلمة المرور الصحيحة
+
+// عرض قسم كلمة المرور عند النقر على زر الإدارة
 document.getElementById('admin-button').addEventListener('click', function() {
-    const adminSection = document.getElementById('admin');
-    adminSection.classList.toggle('hidden'); // إظهار أو إخفاء قسم الإدارة
+    const modal = document.getElementById('password-modal');
+    modal.classList.remove('hidden'); // إظهار نموذج كلمة المرور
+});
+
+// إغلاق نافذة كلمة المرور
+document.querySelector('.close-button').addEventListener('click', function() {
+    document.getElementById('password-modal').classList.add('hidden');
+});
+
+// تحقق من كلمة المرور
+document.getElementById('password-submit').addEventListener('click', function() {
+    const inputPassword = document.getElementById('password-input').value;
+
+    if (inputPassword === correctPassword) {
+        document.getElementById('admin').classList.remove('hidden'); // إظهار قسم الإدارة
+        document.getElementById('password-modal').classList.add('hidden'); // إخفاء نموذج كلمة المرور
+    } else {
+        alert("كلمة المرور غير صحيحة. حاول مرة أخرى.");
+    }
 });
 
 // إضافة منتج
@@ -33,7 +52,7 @@ document.getElementById('add-product-form').addEventListener('submit', function(
     document.getElementById('add-product-form').reset();
 });
 
-// حذف منتج (يمكن تحسينه لاحقاً)
+// حذف منتج
 document.getElementById('delete-product').addEventListener('click', function() {
     const productNameToDelete = document.getElementById('delete-product-name').value;
 
