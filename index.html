@@ -15,7 +15,7 @@
             <a href="#products">المنتجات</a>
             <a href="#about">من نحن</a>
             <a href="#contact">تواصل معنا</a>
-            <a href="#" id="admin-link">إدارة المتجر</a>
+            <a id="admin-button">إدارة المتجر</a>
         </nav>
     </header>
 
@@ -30,7 +30,7 @@
     <!-- About Us Section -->
     <section id="about">
         <h2>من نحن</h2>
-        <p>نحن متجر متخصص في بيع المنتجات اليدوية والإكسسوارات المميزة.</p>
+        <p>نحن متجر متخصص في بيع الإكسسوارات المميزة.</p>
     </section>
 
     <!-- Contact Us Section -->
@@ -51,22 +51,17 @@
         <form id="add-product-form">
             <label for="product-name">اسم المنتج:</label>
             <input type="text" id="product-name" name="product-name">
-            
-            <label for="product-price">سعر المنتج (ل.س):</label>
+            <label for="product-price">سعر المنتج (بالليرة السورية):</label>
             <input type="number" id="product-price" name="product-price">
-            
-            <label for="product-description">وصف المنتج:</label>
-            <textarea id="product-description" name="product-description"></textarea>
-
-            <label for="product-images">رفع الصور:</label>
-            <input type="file" id="product-images" name="product-images" multiple>
-
+            <label for="product-details">تفاصيل المنتج:</label>
+            <textarea id="product-details" name="product-details"></textarea>
+            <label for="product-image">رفع صورة المنتج:</label>
+            <input type="file" id="product-image" accept="image/*">
             <button type="submit">إضافة المنتج</button>
         </form>
-
-        <h3>حذف منتج</h3>
+        <h3>حذف المنتج:</h3>
         <form id="delete-product-form">
-            <label for="delete-product-name">اسم المنتج لحذفه:</label>
+            <label for="delete-product-name">اسم المنتج للحذف:</label>
             <input type="text" id="delete-product-name" name="delete-product-name">
             <button type="submit">حذف المنتج</button>
         </form>
