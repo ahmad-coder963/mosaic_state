@@ -72,7 +72,14 @@ button:hover {
     background-color: #555;
 }
 
-/* إخفاء قسم الإدارة بشكل افتراضي */
+/* قسم إدارة المتجر مخفي */
 .hidden {
     display: none;
+}
+
+#admin {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
 }
