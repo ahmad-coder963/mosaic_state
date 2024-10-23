@@ -1,10 +1,9 @@
-// قائمة المنتجات
-let products = [];
+// قائمة المنتجات، يتم جلبها من localStorage أو تكون فارغة
+let products = JSON.parse(localStorage.getItem('products')) || [];
 
 // كلمة المرور للدخول إلى الإدارة
 const adminPassword = "322502"; // كلمة المرور للدخول إلى قسم الإدارة
 const productPassword = "322502"; // كلمة المرور لإضافة منتج
-const designPassword = "322502"; // كلمة المرور لرفع التصميم
 
 // تفعيل قسم الإدارة عند إدخال كلمة المرور الصحيحة
 document.getElementById('admin-login-form').addEventListener('submit', function(e) {
@@ -46,6 +45,9 @@ document.getElementById('add-product-form').addEventListener('submit', function(
         // إضافة المنتج إلى القائمة
         products.push({ name, price, description, image });
 
+        // حفظ المنتجات في localStorage
+        localStorage.setItem('products', JSON.stringify(products));
+
         // تحديث واجهة المنتجات
         displayProducts();
     }
@@ -82,6 +84,10 @@ document.getElementById('delete-product-form').addEventListener('submit', functi
 
     if (productIndex !== -1) {
         products.splice(productIndex, 1); // حذف المنتج
+
+        // تحديث المنتجات في localStorage
+        localStorage.setItem('products', JSON.stringify(products));
+
         alert(`تم حذف المنتج: ${productNameToDelete}`);
         displayProducts(); // تحديث واجهة المنتجات
     } else {
@@ -89,16 +95,5 @@ document.getElementById('delete-product-form').addEventListener('submit', functi
     }
 });
 
-// إضافة تصميم من Canva
-document.getElementById('add-canva-design-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const enteredDesignPassword = document.getElementById('design-password').value;
-
-    if (enteredDesignPassword === designPassword) {
-        const designDiv = document.createElement('div');
-        designDiv.innerHTML = `<p>تصميم تم إضافته بنجاح!</p>`;
-        document.getElementById('canva-design').appendChild(designDiv);
-    } else {
-        alert("كلمة المرور لرفع التصميم غير صحيحة!");
-    }
-});
+// تحميل المنتجات المخزنة وعرضها عند تحميل الصفحة
+window.addEventListener('load', displayProducts);
