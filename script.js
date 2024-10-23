@@ -3,7 +3,8 @@
 const correctPassword = "322502"; // كلمة المرور الصحيحة
 
 // عرض قسم كلمة المرور عند النقر على زر الإدارة
-document.getElementById('admin-button').addEventListener('click', function() {
+document.getElementById('admin-button').addEventListener('click', function(event) {
+    event.preventDefault(); // منع التوجه إلى رابط الإدارة
     const modal = document.getElementById('password-modal');
     modal.classList.remove('hidden'); // إظهار نموذج كلمة المرور
 });
