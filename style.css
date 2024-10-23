@@ -1,96 +1,75 @@
 /* إعدادات أساسية */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f7f7f7;
-    color: #333;
+    background-color: #f0f0f0;
 }
 
 header {
-    background-color: #4A90E2; /* تغيير لون الخلفية */
+    background-color: #333;
     color: white;
-    padding: 20px;
+    padding: 15px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل */
 }
 
 nav a {
     color: white;
-    margin: 0 20px; /* زيادة المسافة */
+    margin: 0 15px;
     text-decoration: none;
-    font-weight: bold; /* جعل النص أكثر وضوحاً */
-    transition: color 0.3s ease; /* إضافة تأثير انتقال */
-}
-
-nav a:hover {
-    color: #FFAB40; /* تغيير لون الروابط عند التمرير */
 }
 
 section {
-    padding: 40px; /* زيادة الحشو */
+    padding: 20px;
 }
 
 #products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* توسيط المحتوى */
 }
 
 #product-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* توزيع العناصر بشكل متوازن */
 }
 
 #product-list div {
     background-color: white;
-    margin: 15px; /* زيادة المسافة */
-    padding: 15px;
+    margin: 10px;
+    padding: 10px;
     border: 1px solid #ddd;
-    width: calc(33% - 30px);
+    width: calc(33% - 40px);
     box-sizing: border-box;
-    border-radius: 8px; /* إضافة زوايا دائرية */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* تأثير انتقال */
-}
-
-#product-list div:hover {
-    transform: translateY(-5px); /* رفع المنتج عند التمرير */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* إضافة ظل عند التمرير */
 }
 
 #product-list img {
     max-width: 100%;
-    border-radius: 8px; /* إضافة زوايا دائرية للصورة */
 }
 
 form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px; /* زيادة المسافة */
+    margin-top: 20px;
 }
 
 form input, form textarea {
-    margin-bottom: 15px; /* زيادة المسافة */
-    padding: 15px; /* زيادة الحشو */
+    margin-bottom: 10px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 14px; /* زيادة حجم النص */
 }
 
 button {
-    padding: 15px;
-    background-color: #4A90E2; /* تغيير لون الخلفية */
+    padding: 10px;
+    background-color: #333;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 16px; /* زيادة حجم النص */
-    transition: background-color 0.3s ease; /* إضافة تأثير انتقال */
 }
 
 button:hover {
-    background-color: #0079D3; /* تغيير اللون عند التمرير */
+    background-color: #555;
 }
 
 /* قسم إدارة المتجر مخفي */
@@ -100,9 +79,7 @@ button:hover {
 
 #admin {
     background-color: #fff;
-    padding: 30px; /* زيادة الحشو */
+    padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 8px; /* إضافة زوايا دائرية */
-    margin-top: 30px; /* زيادة المسافة */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل */
+    margin-top: 20px;
 }
