@@ -72,36 +72,7 @@ button:hover {
     background-color: #555;
 }
 
-/* قسم إدارة المتجر */
-#admin {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    margin-top: 20px;
-}
-
-/* تحسين العرض لقسم الإدارة */
-#admin h2 {
-    margin-bottom: 20px;
-}
-
-#admin form {
-    margin-bottom: 20px;
-}
-
-#canva-design {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    background-color: #f9f9f9;
-}
-
-/* لإظهار خيارات الإدارة */
+/* إخفاء قسم الإدارة بشكل افتراضي */
 .hidden {
     display: none;
 }
-
-#admin-controls {
-    margin-top: 20px;
-}
-
